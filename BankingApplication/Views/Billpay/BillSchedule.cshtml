@@ -1,0 +1,36 @@
+﻿@model BillScheduleViewModel
+@{
+    ViewData["Title"] = "BillSchedule";
+}
+    
+    <div>
+        <h3>Your Bills</h3>
+        @if (Model.bills.Count == 0)
+        {
+            <h4>No bills available</h4>
+        }
+        else
+        {
+        <table class="table">
+            <tr>
+                <th></th>
+                <th>Payee</th>
+                <th>Amount</th>
+                <th>Scheduled Date</th>
+                <th>Period</th>
+            </tr>
+       @foreach (var NameBill in Model.bills)
+        {
+            <tr>
+                <td><button class="btn btn-primary" onclick="location.href='@Url.Action("CreateBill", "BillPay")?billID=@NameBill.Bill.BillPayID'">Modify</button></td>
+                <td>@NameBill.PayeeName</td>
+                <td>@NameBill.Bill.Amount.ToString("0.00")</td>
+                <td>@NameBill.Bill.ScheduleDate</td>
+                <td>@NameBill.Bill.Period</td>
+            </tr>
+        }
+    </table>
+        }
+    </div>
+
+

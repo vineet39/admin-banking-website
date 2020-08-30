@@ -1,0 +1,21 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@{
+ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+   <h1 class="display-4">Welcome To National Wealth of Australia</h1>
+   <h1 class="display-4">Online Banking Service</h1>
+   @{
+   var isLoggedIn = Context.Session.GetInt32(nameof(Customer.CustomerID)).HasValue;
+   }
+   @if(!isLoggedIn) 
+   {
+   <h2 class="text-body">Please log in using the link above</h2>
+   }
+   else
+   {
+    <h2 class="text-body">Hello @Context.Session.GetString(nameof(Customer.CustomerName)). Please use the links in the Navigation Bar to access our banking services.</h2>
+   }
+</div>

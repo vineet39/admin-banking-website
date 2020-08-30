@@ -1,0 +1,46 @@
+@model IEnumerable<Account>
+@using Newtonsoft.Json;
+@using Microsoft.AspNetCore.Http;
+@{
+    ViewData["Title"] = "Account";
+}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+<script type="text/javascript">
+            $(document).ready(function(){
+                    $('#combo').change(function(){
+                    var value = parseInt($('select[name=ddl]').val());
+                    if(value == 0)
+                      $("#viewPlaceHolder").hide();
+                    else
+                    {
+                      $("#viewPlaceHolder").show();
+                      $("#viewPlaceHolder").load("/billpay/seemybalance", { id: value});
+                    }
+                    
+                   console.log(value);
+                   
+            });
+        });
+</script>
+
+
+<div class="form-group row" style="justify-content:center">
+<label class="col-3">Account Type:</label>
+<select id="combo" name="ddl" class="col-3 form-control">
+<option value=0 >Select an account</option>
+  @foreach(var account in Model) 
+    {   
+        string accountType = @account.AccountType == 'S' ? "Savings" : "Checkings";
+        string AccountNumber = (@account.AccountNumber).ToString();
+        <option value=@AccountNumber>@accountType</option>
+    }
+  
+  </select>
+</div>
+
+
+<div id="viewPlaceHolder">
+
+</div>

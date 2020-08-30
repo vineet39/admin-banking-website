@@ -1,0 +1,40 @@
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Mvc.Core.Common
+@model IPagedList<Transaction>
+@{
+var dictionary = new Dictionary<string, string>();
+dictionary.Add((Transaction.WithdrawTransaction).ToString(), "Withdraw");
+dictionary.Add((Transaction.DepositTransaction).ToString(), "Deposit");
+dictionary.Add((Transaction.TransferTransaction).ToString(), "Transfer");
+dictionary.Add((Transaction.ServiceChargeTransaction).ToString(), "Service Charge");
+dictionary.Add((Transaction.BillPayTransaction).ToString(), "Bill Pay");
+}
+
+<div>
+   <table class="table">
+      <tr>
+         <th>@Html.DisplayNameFor(x => x[0].TransactionType)</th>
+         <th>@Html.DisplayNameFor(x => x[0].Amount)</th>
+         <th>@Html.DisplayNameFor(x => x[0].DestinationAccountNumber)</th>
+         <th>@Html.DisplayNameFor(x => x[0].Comment)</th>
+         <th>@Html.DisplayNameFor(x => x[0].ModifyDate)</th>
+         <th></th>
+      </tr>
+      @foreach(var transaction in Model) {
+      <tr>
+         <td>@dictionary[(transaction.TransactionType).ToString()]</td>
+         <td>@Html.DisplayFor(x => transaction.Amount)</td>
+         <td>@Html.DisplayFor(x => transaction.DestinationAccountNumber)</td>
+         <td>@Html.DisplayFor(x => transaction.Comment)</td>
+         <td>@Html.DisplayFor(x => transaction.ModifyDate)</td>
+      </tr>
+      }
+   </table>
+   @Html.PagedListPager(Model, page => Url.Action("MyDetails", new { page }),
+   new PagedListRenderOptions {
+   LiElementClasses = new[] { "page-item" },
+   PageClasses = new[] { "page-link" }
+   })
+   <button type="button" class="btn btn-primary" style="margin-top:20px" onclick="location.href='@Url.Action("SelectAccount", "MyStatements")'">Back to Account Selection</button>
+</div>

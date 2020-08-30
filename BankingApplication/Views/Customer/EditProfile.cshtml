@@ -1,0 +1,59 @@
+@model Customer
+@{
+ViewData["Title"] = "EditProfile";
+ViewData["Customerid"] = @Model.CustomerID;
+}
+
+<div class="row justify-content-center">
+   <div class="col-md-4">
+      <form asp-action="EditProfile" method="Post" asp-route-customerid="@Model.CustomerID">
+         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+         <div class="form-group">
+            <label  class="control-label" asp-for="CustomerName">Name:</label>
+            <input id="Name" class="form-control" value=@Model.CustomerName asp-for="CustomerName"/>
+            <span asp-validation-for="CustomerName" class="text-danger"></span>
+         </div>
+         <div class="form-group">
+            <label for="TFN" class="control-label">TFN:</label>
+            <input id="TFN" name="TFN" class="form-control" value=@Model.TFN asp-for="TFN"/>
+            <span asp-validation-for="TFN" class="text-danger"></span>
+         </div>
+         <div class="form-group">
+            <label for="Address" class="control-label">Address:</label>
+            <input id="Address" name="Address" class="form-control" value=@Model.Address asp-for="Address"/>
+            <span asp-validation-for="Address" class="text-danger"></span>
+         </div>
+         <div class="form-group">
+            <label for="City" class="control-label">City:</label>           
+            <input id="City" name="City" class="form-control" value=@Model.City asp-for="City"/>
+            <span asp-validation-for="City" class="text-danger"></span>
+         </div>
+         <div class="form-group">
+            <label for="State" class="control-label">State:</label>
+            <input id="State" name="State" class="form-control" value=@Model.State asp-for="State"/>
+            <span asp-validation-for="State" class="text-danger"></span>
+         </div>
+         <div class="form-group">
+            <label for="PostCode" class="control-label">PostCode:</label>
+            <input id="PostCode" name="PostCode" class="form-control" value=@Model.PostCode asp-for="PostCode"/>
+            <span asp-validation-for="PostCode" class="text-danger"></span>
+         </div>
+         <div class="form-group">
+            <label for="Phone" class="control-label">Phone:</label>
+            <input id="Phone" name="Phone" class="form-control" value=@Model.Phone asp-for="Phone"/>
+            <span asp-validation-for="Phone" class="text-danger"></span>
+         </div>
+         <div class="text-center">
+            @Html.ValidationMessage("EditSuccess", new { @class = "text-success" })
+         </div>
+         <div class="form-group-inline text-center" style="margin-top:30px">
+             <input type="submit" value="Save" class="btn btn-primary" id="button" style="margin-right:50px">
+             <button type="button" class="btn btn-secondary" id="button" onclick="location.href='@Url.Action("Index", "Home")'">Cancel</button>
+         </div>
+      </form>
+   </div>
+</div>
+
+@section Scripts {
+@{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

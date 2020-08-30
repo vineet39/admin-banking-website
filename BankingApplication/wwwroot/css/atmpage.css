@@ -1,0 +1,14 @@
+.form-group{
+    justify-content: center;
+}
+
+#button{
+    margin-right: 50px;
+    margin-top: 30px;
+    justify-content: center;
+}
+
+#destinationAccountNumber, #comment{
+    display: none;
+}
+

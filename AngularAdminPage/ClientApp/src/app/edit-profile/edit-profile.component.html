@@ -1,0 +1,49 @@
+<h1 class="row justify-content-center">Edit Profile</h1>
+<div class="row justify-content-center">
+   <div class="col-md-4">
+      <form [formGroup]="editProfileForm" (ngSubmit)="editProfile()" #formDir="ngForm">
+         <div class="form-group">
+            <label class="control-label">Name:</label>
+            <input class="form-control" type="text" formControlName="customername"> 
+            <span class="text-danger" *ngIf="editProfileForm.controls.customername.status === 'INVALID' && formDir.submitted">Name is required.Max length is 50.</span>
+         </div>
+         <div class="form-group">
+            <label for="tfn" class="control-label">TFN:</label>
+            <input id="tfn" name="tfn" class="form-control" formControlName="tfn"> 
+            <span class="text-danger" *ngIf="editProfileForm.controls.tfn.status === 'INVALID' && formDir.submitted">Enter a 11 digit number.</span>
+         </div>
+         <div class="form-group">
+            <label for="Address" class="control-label">Address:</label>
+            <input id="Address" name="Address" class="form-control" formControlName="address"> 
+            <span class="text-danger" *ngIf="editProfileForm.controls.address.status === 'INVALID' && formDir.submitted">Max length is 50.</span>
+         </div>
+         <div class="form-group">
+            <label for="City" class="control-label">City:</label>           
+            <input id="City" name="City" class="form-control" formControlName="city"> 
+            <span class="text-danger" *ngIf="editProfileForm.controls.city.status === 'INVALID' && formDir.submitted">Enter a valid city name eg: Melbourne.</span>
+         </div>
+         <div class="form-group">
+            <label for="State" class="control-label">State:</label>
+            <input id="State" name="State" class="form-control" formControlName="state"> 
+            <span class="text-danger" *ngIf="editProfileForm.controls.state.status === 'INVALID' && formDir.submitted">Enter a valid state name eg: VIC.</span>
+         </div>
+         <div class="form-group">
+            <label for="PostCode" class="control-label">PostCode:</label>
+            <input id="PostCode" name="PostCode" class="form-control" formControlName="postcode"> 
+            <span class="text-danger" *ngIf="editProfileForm.controls.postcode.status === 'INVALID' && formDir.submitted">Enter a 4 digit postcode.</span>
+         </div>
+         <div class="form-group">
+            <label for="Phone" class="control-label">Phone:</label>
+            <input class="form-control" type="text" formControlName="phone"> 
+            <span class="text-danger" *ngIf="editProfileForm.controls.phone.status === 'INVALID' && formDir.submitted">Phone is required and should be formatted like (61) - XXXXXXXX.</span>
+         </div>
+         <div class="text-center">
+            
+         </div>
+         <div class="form-group-inline text-center" style="margin-top:30px">
+             <input type="submit" value="Save" class="btn btn-primary" style="margin-right:50px" >
+             <button type="button" class="btn btn-secondary" [routerLink]="['/customer-list']">Cancel</button>
+         </div>
+      </form>
+   </div>
+</div>

@@ -1,0 +1,78 @@
+﻿@model BillViewModel
+@{
+
+    int mod = 0;
+    if(ViewData["Mod"] != null)
+    {
+        mod = (int)ViewData["Mod"];
+    }
+    int radio;
+    ViewData["Title"] = "BillPay";
+    if (Model.Billpay.AccountNumber == 0)
+    {
+        radio = Model.Customer.Accounts[0].AccountNumber;
+    }
+    else
+    {
+        radio = Model.Billpay.AccountNumber;
+    }
+
+}
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <form asp-action="CreateBill" method="Post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label for="From Account" class="control-label">From Account:</label>
+                @foreach (var account in Model.Customer.Accounts)
+                {
+                    if (account.AccountNumber == radio)
+                    {
+                        <label class="form-check-label"><input asp-for="SelectedAccount" value="@account.AccountNumber" type="radio" checked="" />@account.AccountNumber</label>
+                    }
+                    else
+                    {
+                        <label class="form-check-label"><input asp-for="SelectedAccount" value="@account.AccountNumber" type="radio" />@account.AccountNumber</label>
+                    }
+                    @Html.Raw(" ");
+                }
+                <span asp-validation-for="SelectedAccount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="To Payee" class="control-label">To Payee:</label>
+                @Html.DropDownListFor(m => m.SelectedPayee, new SelectList(Model.Payees, "Key", "Value"), new { @class = "form-control" })
+                <span asp-validation-for="SelectedPayee" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Amount" class="control-label">Amount:</label>
+                <input asp-for="Billpay.Amount" class="form-control" value="@Model.Billpay.Amount" />
+                <span asp-validation-for="Billpay.Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Scheduled Date" class="control-label">Scheduled Date:</label>
+                <input asp-for="Billpay.ScheduleDate" class="form-control" value="@Model.Billpay.ScheduleDate" />
+                <span asp-validation-for="Billpay.ScheduleDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Peroid" class="control-label">Peroid:</label>
+                <select asp-for="Billpay.Period"
+                        asp-items="Html.GetEnumSelectList<BillPay.Periods>()"
+                        class="form-control">
+                </select>
+                <span asp-validation-for="Billpay.Period" class="text-danger"></span>
+            </div>
+            <div class="form-group text-center" style="margin-top:30px">
+                <input type="submit" value="Save" class="btn btn-primary" style="margin-right:50px" />
+                <button class="btn btn-secondary" onclick="location.href='@Url.Action("Index", "Home")';return false;">Cancel</button>
+            </div>
+            @Html.ValidationMessage("BillCreatedSuccess", new { @class = "text-success" })
+        </form>
+        @if (mod > 0)
+        {
+            <div>
+            <button type="button" class="btn btn-primary" style="margin-right:20px" onclick="location.href='@Url.Action("SelectAccount", "BillPay")'">Back to Account Selection</button>
+            <button class="btn btn-danger" onclick="location.href='@Url.Action("DeleteBill", "BillPay")?id=@mod'">Cancel Bill</button>
+            </div>
+        }
+        </div>
+    </div>

@@ -1,0 +1,46 @@
+<h1 id="tableLabel">Transaction list</h1>
+
+<p *ngIf="!transactions"><em>No transactions to display.</em></p>
+
+<mat-form-field  style="margin-right: 30px;">
+  <input matInput [matDatepicker]="picker" [formControl]="startDate" placeholder="Select start date">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+<mat-form-field>
+    <input matInput [matDatepicker]="picker1" [matDatepickerFilter]="myFilter" [formControl]="endDate" placeholder="Select end date">
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+  </mat-form-field>
+
+<div style="position: relative;margin-top: -55px;margin-left: 500px;"> 
+      <button class="btn btn-primary" style="margin-right: 30px;" (click)="filterTransactions()" [disabled]="!startDate.value || !endDate.value" >Filter</button>
+      <button class="btn btn-primary" (click)="resetFilter()">Reset</button>
+</div>
+
+<table class='table' aria-labelledby="tableLabel" *ngIf="transactions" ng-app style="margin-top: 30px;">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Destination Acc Number</th>
+      <th>Amount</th> 
+      <th>Comment</th>
+      <th>Last Modified</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let transaction of transactions">
+      <td>{{ transaction.transactionType }}</td>
+      <td>{{ transaction.destinationAccountNumber }}</td>
+      <td>{{ transaction.amount }}</td>
+      <td>{{ transaction.comment }}</td>
+      <td>{{ transaction.modifyDate }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="text-center" style="margin-top:30px">
+    <button class="btn btn-secondary" style="margin-right:30px" [routerLink]="['/account-list', selectedCustomerId]">< Back to customer accounts</button>
+    <button class="btn btn-primary" [disabled]="transactions.length == 0" [routerLink]="['/chart', selectedCustomerId, selectedAccountId, startDate.value ? startDate.value.toDateString() : '', endDate.value ? endDate.value.toDateString() : '']">View Graphical Data</button>
+</div>

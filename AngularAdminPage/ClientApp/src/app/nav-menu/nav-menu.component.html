@@ -1,0 +1,41 @@
+<header>
+  <nav
+    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
+  >
+    <div class="container">
+      <a class="navbar-brand" [routerLink]="['/']">BankingAppAdminPage</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+        aria-label="Toggle navigation"
+        [attr.aria-expanded]="isExpanded"
+        (click)="toggle()"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+        [ngClass]="{ show: isExpanded }"
+      >
+        <ul class="navbar-nav flex-grow">
+          <li class="nav-item">
+            <form #myform = "ngForm" (ngSubmit) = "onSubmit(myform)" class="form-inline" *ngIf="!loggedIn">
+              <div>
+                 <input id="AdminID" name="AdminID" class="form-control mr-lg-2" ngModel placeholder="Username" />
+              </div>
+              <div>
+                 <input type="password" id="Password" name="Password" class="form-control mr-lg-2" ngModel placeholder="Password"/>
+              </div>
+              <div>
+                 <input type="submit" value="Login" class="btn btn-primary"  />
+              </div>
+           </form>
+           <a class="nav-link text-dark" (click)="logout()"*ngIf="loggedIn">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

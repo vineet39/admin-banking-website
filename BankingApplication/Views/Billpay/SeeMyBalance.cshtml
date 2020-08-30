@@ -1,0 +1,5 @@
+@model Account
+
+<div style="text-align:center;margin-top:20px;font-size:25px"><label>Your balance is <b>@Model.Balance.ToString("0.00")</b></label></div>
+<div style="text-align:center;margin-top:20px"><button class="btn btn-primary"  onclick="location.href='@Url.Action("BillSchedule", "BillPay")?accountNumber=@Model.AccountNumber'">View and modify Bills</button></div>
+
